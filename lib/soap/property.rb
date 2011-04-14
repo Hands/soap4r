@@ -317,3 +317,16 @@ end
 
 
 end
+
+# for ruby/1.6.
+if not Enumerable.instance_methods.include?('inject') and not Enumerable.instance_methods.include?(:inject)
+  module Enumerable
+    def inject(init)
+      result = init
+      each do |item|
+	result = yield(result, item)
+      end
+      result
+    end
+  end
+end
